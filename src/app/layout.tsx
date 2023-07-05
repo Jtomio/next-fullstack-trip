@@ -2,6 +2,7 @@ import React from 'react'
 import './globals.css'
 import { Poppins } from 'next/font/google'
 import { NextAuthProvider } from '@/providers/auth'
+import Header from '@/components/Header'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -21,7 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          <Header />
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   )
