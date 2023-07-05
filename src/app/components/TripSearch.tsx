@@ -14,7 +14,7 @@ export default function TripSearch() {
       <div className="flex flex-col gap-4 mt-5">
         <Input placeholder="Onde você quer ir?" />
 
-        <div className="flex gap-4">
+        <div className="flex">
           <DatePicker onChange={() => {}} placeholderText="Data da ida" />
           <CurrencyInput placeholder="Orçamento" />
         </div>
