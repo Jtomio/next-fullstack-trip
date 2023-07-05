@@ -14,7 +14,7 @@ export default function Header() {
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen)
 
   return (
-    <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center shadow-sm bg-transparent">
+    <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
       <div className="relative h-[32px] w-[182px]">
         <Image src={LogoImg} fill alt="image logo" />
       </div>

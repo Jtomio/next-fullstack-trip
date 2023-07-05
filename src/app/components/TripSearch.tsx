@@ -1,4 +1,5 @@
 'use client'
+import Button from '@/components/Button'
 import CurrencyInput from '@/components/CurrencyInput'
 import DatePicker from '@/components/DatePicker'
 import Input from '@/components/Input'
@@ -6,7 +7,7 @@ import React from 'react'
 
 export default function TripSearch() {
   return (
-    <div className="container mx-auto p-5">
+    <div className="container mx-auto p-5 bg-search-bg bg-cover bg-center bg-no-repeat">
       <h1 className="font-semibold text-2xl text-primaryDarker text-center">
         Encontre a sua próxima
         <span className="text-primary">viagem!</span>
@@ -18,6 +19,7 @@ export default function TripSearch() {
           <DatePicker onChange={() => {}} placeholderText="Data da ida" />
           <CurrencyInput placeholder="Orçamento" />
         </div>
+        <Button>Buscar</Button>
       </div>
     </div>
   )
