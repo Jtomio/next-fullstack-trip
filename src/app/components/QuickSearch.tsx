@@ -16,19 +16,19 @@ export default function QuickSearch() {
       </div>
 
       <div className="flex justify-between p-5">
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 cursor-pointer">
           <FaHotel size={30} />
           <p className="text-sm text-grayPrimary">Hotel</p>
         </div>
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 cursor-pointer">
           <TbBuildingCottage size={30} />
           <p className="text-sm text-grayPrimary">Fazenda</p>
         </div>
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 cursor-pointer">
           <MdOutlineCottage size={30} />
           <p className="text-sm text-grayPrimary">Chalé</p>
         </div>
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 cursor-pointer">
           <GiCampingTent size={30} />
           <p className="text-sm text-grayPrimary">Camping</p>
         </div>
