@@ -2,6 +2,8 @@ import React from 'react'
 import ReactCountryFlag from 'react-country-flag'
 import Image from 'next/image'
 import { Trip } from '@prisma/client'
+import Link from 'next/link'
+import { BiArrowBack } from 'react-icons/bi'
 
 interface TripHeaderProps {
   trip: Trip
@@ -10,6 +12,12 @@ interface TripHeaderProps {
 export default function TripHeader({ trip }: TripHeaderProps) {
   return (
     <div className="flex flex-col">
+      <Link href="/">
+        <p className="flex items-center gap-2 text-primary py-3 pl-10">
+          <BiArrowBack />
+          Voltar
+        </p>
+      </Link>
       <div className="relative h-[280px] w-full">
         <Image src={trip?.coverImage} fill objectFit="cover" alt={trip.name} />
       </div>
