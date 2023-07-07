@@ -2,6 +2,7 @@
 import Button from '@/components/Button'
 import DatePicker from '@/components/DatePicker'
 import Input from '@/components/Input'
+import { differenceInDays } from 'date-fns'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -9,6 +10,7 @@ interface TripReservationProps {
   tripStartDate: Date
   tripEndDate: Date
   maxGuests: number
+  pricePerDay: number
 }
 
 interface TripReservationForm {
@@ -21,6 +23,7 @@ export default function TripReservation({
   tripEndDate,
   tripStartDate,
   maxGuests,
+  pricePerDay,
 }: TripReservationProps) {
   const {
     register,
@@ -35,6 +38,7 @@ export default function TripReservation({
   }
 
   const startDate = watch('startDate')
+  const endDate = watch('endDate')
 
   return (
     <div className="flex flex-col mx-auto px-10 pb-10 border-b borgral">
@@ -50,7 +54,7 @@ export default function TripReservation({
           control={control}
           render={({ field }) => (
             <DatePicker
-              placeholderText="Data do Início"
+              placeholderText="Data da entrada"
               onChange={field.onChange}
               selected={field.value}
               error={!!errors?.startDate}
@@ -71,7 +75,7 @@ export default function TripReservation({
           control={control}
           render={({ field }) => (
             <DatePicker
-              placeholderText="Data final"
+              placeholderText="Data da saída"
               onChange={field.onChange}
               selected={field.value}
               error={!!errors?.endDate}
@@ -98,7 +102,11 @@ export default function TripReservation({
 
       <div className="flex justify-between mt-2">
         <div className="font-medium text-sm text-primaryDarker">total: </div>
-        <div className="font-medium text-sm text-primaryDarker">R$ 2,500</div>
+        <div className="font-medium text-sm text-primaryDarker">
+          {startDate && endDate
+            ? `R$ ${differenceInDays(endDate, startDate) * pricePerDay ?? 1}`
+            : 'R$ 0,00'}
+        </div>
       </div>
       <Button
         variant="primary"
