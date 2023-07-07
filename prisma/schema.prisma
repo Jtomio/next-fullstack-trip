@@ -11,20 +11,21 @@ datasource db {
 }
 
 model Trip {
-  id              String            @id @default(uuid())
-  name            String
-  location        String
-  description     String
-  startDate       DateTime
-  endDate         DateTime
-  pricePerDay     Decimal           @db.Decimal(8, 2) // Save price as 1190,90.
-  coverImage      String
-  imageUrl        String[]
-  highlights      String[]
-  maxGuests       Int
-  countryCode     String
-  recommended     Boolean           @default(false)
-  TripReservation TripReservation[]
+  id                  String            @id @default(uuid())
+  name                String
+  location            String
+  description         String
+  locationDescription String            @default("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.")
+  startDate           DateTime
+  endDate             DateTime
+  pricePerDay         Decimal           @db.Decimal(8, 2) // Save price as 1190,90.
+  coverImage          String
+  imageUrl            String[]
+  highlights          String[]
+  maxGuests           Int
+  countryCode         String
+  recommended         Boolean           @default(false)
+  TripReservation     TripReservation[]
 }
 
 model TripReservation {

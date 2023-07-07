@@ -18,7 +18,7 @@ export default function TripSearch() {
           <DatePicker onChange={() => {}} placeholderText="Data da ida" />
           <CurrencyInput placeholder="Orçamento" />
         </div>
-        <Button>Buscar</Button>
+        <Button variant="primary">Buscar</Button>
       </div>
     </div>
   )
