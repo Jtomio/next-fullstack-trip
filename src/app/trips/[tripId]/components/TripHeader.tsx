@@ -11,18 +11,24 @@ interface TripHeaderProps {
 
 export default function TripHeader({ trip }: TripHeaderProps) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col px-10">
       <Link href="/">
-        <p className="flex items-center gap-2 text-primary py-3 pl-10">
+        <p className="flex items-center gap-2 text-primary py-3">
           <BiArrowBack />
           Voltar
         </p>
       </Link>
       <div className="relative h-[280px] w-full">
-        <Image src={trip?.coverImage} fill objectFit="cover" alt={trip.name} />
+        <Image
+          src={trip?.coverImage}
+          fill
+          objectFit="cover"
+          alt={trip.name}
+          className="rounded-md"
+        />
       </div>
       {/* Title and Information */}
-      <div className="flex flex-col px-10">
+      <div className="flex flex-col mt-4">
         <h1 className="font-semibold text-xl text-primaryDarker">
           {trip.name}
         </h1>

@@ -2,12 +2,13 @@
 import Button from '@/components/Button'
 import DatePicker from '@/components/DatePicker'
 import Input from '@/components/Input'
-import { Trip } from '@prisma/client'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 interface TripReservationProps {
-  trip: Trip
+  tripStartDate: Date
+  tripEndDate: Date
+  maxGuests: number
 }
 
 interface TripReservationForm {
@@ -16,15 +17,24 @@ interface TripReservationForm {
   endDate: Date | null
 }
 
-export default function TripReservation({ trip }: TripReservationProps) {
+export default function TripReservation({
+  tripEndDate,
+  tripStartDate,
+  maxGuests,
+}: TripReservationProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    watch,
   } = useForm<TripReservationForm>()
 
-  const onSubmit = (data: any) => {}
+  const onSubmit = (data: any) => {
+    console.log({ data })
+  }
+
+  const startDate = watch('startDate')
 
   return (
     <div className="flex flex-col mx-auto px-10 pb-10 border-b borgral">
@@ -45,6 +55,7 @@ export default function TripReservation({ trip }: TripReservationProps) {
               selected={field.value}
               error={!!errors?.startDate}
               errorMessage={errors.startDate?.message}
+              minDate={tripStartDate}
               className="w-full"
             />
           )}
@@ -65,6 +76,8 @@ export default function TripReservation({ trip }: TripReservationProps) {
               selected={field.value}
               error={!!errors?.endDate}
               errorMessage={errors.endDate?.message}
+              maxDate={tripEndDate}
+              minDate={startDate ?? tripStartDate}
               className="w-full"
             />
           )}
@@ -77,7 +90,7 @@ export default function TripReservation({ trip }: TripReservationProps) {
             message: 'Número de hóspedes é obrigatório!',
           },
         })}
-        placeholder={`Número de hospedes (max: ${trip.maxGuests})`}
+        placeholder={`Número de hospedes (max: ${maxGuests})`}
         className="mt-4"
         error={!!errors?.guests}
         errorMessage={errors?.guests?.message}
