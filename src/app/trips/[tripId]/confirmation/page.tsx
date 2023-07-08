@@ -1,9 +1,11 @@
 'use client'
+import React, { useEffect, useState } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+
 import { Trip } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
 import { BiArrowBack } from 'react-icons/bi'
 import { SlCalender } from 'react-icons/sl'
 import { BsPerson } from 'react-icons/bs'
@@ -21,6 +23,9 @@ export default function TripConfirmation({
   const [totalPrice, setTotalPrice] = useState<number>(0)
   const searchParms = useSearchParams()
 
+  const router = useRouter()
+  const { status } = useSession()
+
   useEffect(() => {
     const fetchTrip = async () => {
       const response = await fetch(`http://localhost:3000/api/trips/check`, {
@@ -32,13 +37,22 @@ export default function TripConfirmation({
         }),
       })
 
-      const { trip, totalPrice } = await response.json()
+      const res = await response.json()
 
-      setTrip(trip)
-      setTotalPrice(totalPrice)
+      if (res?.error) {
+        return router.push('/')
+      }
+
+      setTrip(res.trip)
+      setTotalPrice(res.totalPrice)
     }
+
+    if (status === 'unauthenticated') {
+      router.push('/')
+    }
+
     fetchTrip()
-  }, [params.tripId, searchParms])
+  }, [status])
 
   if (!trip) return null
 
