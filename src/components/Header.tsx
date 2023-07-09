@@ -14,7 +14,7 @@ export default function Header() {
   const handleLogOutClick = () => signOut()
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen)
 
-  const handleMyTripsClick = () => {}
+  // const handleMyTripsClick = () => {}
 
   return (
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center sticky top-0 z-10 bg-white shadow-b-sm">
