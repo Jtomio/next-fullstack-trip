@@ -4,6 +4,7 @@ import { Poppins } from 'next/font/google'
 import { NextAuthProvider } from '@/providers/auth'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import ToastProvider from '@/providers/toast'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -24,9 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
-          <Header />
-          {children}
-          <Footer />
+          <ToastProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ToastProvider>
         </NextAuthProvider>
       </body>
     </html>

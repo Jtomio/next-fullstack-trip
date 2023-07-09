@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-
 import { Trip } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,6 +12,7 @@ import ReactCountryFlag from 'react-country-flag'
 import { format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import Button from '@/components/Button'
+import { toast } from 'react-toastify'
 
 export default function TripConfirmation({
   params,
@@ -24,7 +24,9 @@ export default function TripConfirmation({
   const searchParms = useSearchParams()
 
   const router = useRouter()
-  const { status } = useSession()
+  const { status, data } = useSession()
+
+  console.log(data?.user)
 
   useEffect(() => {
     const fetchTrip = async () => {
@@ -52,9 +54,35 @@ export default function TripConfirmation({
     }
 
     fetchTrip()
-  }, [status])
+  }, [status, searchParms, params, router])
 
   if (!trip) return null
+
+  const handleBuyClick = async () => {
+    const res = await fetch('http://localhost:3000/api/trips/reservation', {
+      method: 'POST',
+      body: Buffer.from(
+        JSON.stringify({
+          tripId: params.tripId,
+          startDate: searchParms.get('startDate'),
+          endDate: searchParms.get('endDate'),
+          guests: Number(searchParms.get('guests')),
+          userId: (data?.user as any)?.id!,
+          totalPaid: totalPrice,
+        }),
+      ),
+    })
+
+    if (!res.ok) {
+      return toast.error('Ocorreu um erro ao realizar a reserva!')
+    }
+
+    if (!res.ok) {
+      toast.success('Reserva realizada com sucesso!', {
+        position: 'bottom-center',
+      })
+    }
+  }
 
   const startDate = new Date(searchParms.get('startDate') as string)
   const endDate = new Date(searchParms.get('endDate') as string)
@@ -125,7 +153,7 @@ export default function TripConfirmation({
             <BsPerson />
             <span>{guests} pessoas</span>
           </div>
-          <Button variant="primary" className="mt-5">
+          <Button variant="primary" className="mt-5" onClick={handleBuyClick}>
             Finalizar compra
           </Button>
         </div>
