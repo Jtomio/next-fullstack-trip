@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import LogoImg from '../../public/logo.svg'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { AiOutlineMenu } from 'react-icons/ai'
+import Link from 'next/link'
 
 export default function Header() {
   const { status, data } = useSession()
@@ -12,6 +13,8 @@ export default function Header() {
   const handleLoginClick = () => signIn()
   const handleLogOutClick = () => signOut()
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen)
+
+  const handleMyTripsClick = () => {}
 
   return (
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center sticky top-0 z-10 bg-white shadow-b-sm">
@@ -43,7 +46,12 @@ export default function Header() {
           />
 
           {menuIsOpen && (
-            <div className="absolute top-14 left-0 w-full h-full bg-white rounded-full shadow-md p-2 px-3 flex flex-col justify-center items-center cursor-pointer">
+            <div className="absolute top-14 left-0 w-full h-[100px] bg-white rounded-lg shadow-md p-2 px-3 flex flex-col justify-center items-center cursor-pointer">
+              <Link href="/my-trips">
+                <button className="text-primary text-xs font-semibold mb-2">
+                  Minhas viagens
+                </button>
+              </Link>
               <button
                 className="text-primary text-xs font-semibold"
                 onClick={handleLogOutClick}
