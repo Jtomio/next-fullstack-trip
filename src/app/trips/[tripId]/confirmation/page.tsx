@@ -26,8 +26,6 @@ export default function TripConfirmation({
   const router = useRouter()
   const { status, data } = useSession()
 
-  console.log(data?.user)
-
   useEffect(() => {
     const fetchTrip = async () => {
       const response = await fetch(`http://localhost:3000/api/trips/check`, {

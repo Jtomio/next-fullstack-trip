@@ -91,6 +91,32 @@ export default function TripReservation({
   const startDate = watch('startDate')
   const endDate = watch('endDate')
 
+  const minDate = () => {
+    const currentDate = new Date(Date.now())
+    if (startDate === null) {
+      return null
+    }
+    if (startDate <= currentDate || tripStartDate <= currentDate) {
+      return currentDate
+    } else {
+      return startDate
+    }
+  }
+
+  const maxDate = () => {
+    const initialDate = new Date(Date.now())
+    if (endDate === null) {
+      return null
+    }
+    if (endDate <= initialDate || tripEndDate <= initialDate) {
+      return initialDate
+    } else {
+      const newMaxDate = new Date(endDate)
+      newMaxDate.setDate(newMaxDate.getDate() + 1)
+      return newMaxDate
+    }
+  }
+
   return (
     <div className="flex flex-col mx-auto px-10 pb-10 border-b borgral">
       <div className="flex gap-4">
@@ -110,7 +136,7 @@ export default function TripReservation({
               selected={field.value}
               error={!!errors?.startDate}
               errorMessage={errors.startDate?.message}
-              minDate={tripStartDate}
+              minDate={minDate()}
               className="w-full"
             />
           )}
@@ -131,7 +157,7 @@ export default function TripReservation({
               selected={field.value}
               error={!!errors?.endDate}
               errorMessage={errors.endDate?.message}
-              maxDate={tripEndDate}
+              maxDate={maxDate()}
               minDate={startDate ?? tripStartDate}
               className="w-full"
             />
